@@ -11,5 +11,5 @@ type square =
         | O => "O"
         | Empty => ""
     }
-    <div className="square">{fill->React.string}</div> 
+    <div onClick=chooseSquare className="square">{fill->React.string}</div> 
  }
