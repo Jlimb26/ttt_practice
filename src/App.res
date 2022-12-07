@@ -16,11 +16,27 @@ let patterns = [
 
 let initialBoardState = Belt_Array.make(9, Empty)
 
+
+
 @react.component
 let make = () => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (player, setPlayer) = React.useState(_ => X);
   let (result, setResult) = React.useState(_ => Empty)
+
+  let checkWin = () => {
+    Belt_Array.forEach(patterns, (currPattern) => {
+      let firstPlayer = board[currPattern[0]]
+      let winner = firstPlayer 
+      Belt_Array.forEach(currPattern, (i) => {
+        if (board[i] != firstPlayer) {
+          setResult(_ => Empty)
+        }
+      })
+      setResult(_ => winner)
+    })
+    Js.Console.log(result)
+  }
 
   let chooseSquare = (square) => {
     setBoard(_ => Belt_Array.mapWithIndex(board, (i, val) => {
@@ -38,18 +54,10 @@ let make = () => {
     }
   }
 
-  let checkWin = () => {
-    Belt_Array.forEach(patterns, (currPattern) => {
-      let firstPlayer = board[currPattern[0]]
-      let winner = firstPlayer 
-      Belt_Array.forEach(currPattern, (i) => {
-        if (board[i] != firstPlayer) {
-          let winner = Empty
-        }
-      })
-      setResult(_ => winner)
-    })
-  }
+  React.useEffect(() => {
+    Some(() => checkWin())
+  })
+
 
   <div className="App"> 
     <div className="board"> 
