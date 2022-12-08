@@ -27,44 +27,50 @@ let make = () => {
   let checkWin = () => {
     Belt_Array.forEach(patterns, (currPattern) => {
       let firstPlayer = board[currPattern[0]]
-      let winner = firstPlayer 
-      Belt_Array.forEach(currPattern, (i) => {
-        if (board[i] != firstPlayer) {
-          setResult(_ => Empty)
-        }
-      })
-      setResult(_ => winner)
+      if Belt_Array.every(currPattern, (x) => board[x] == firstPlayer) && firstPlayer != Empty {
+        setResult(_ => firstPlayer)
+        Js.Console.log("Someone won!")
+      }
     })
-    Js.Console.log(result)
   }
-
-    let switchPlayer = () => ({
-    if (player == X) { 
-      setPlayer(_ => O);
-    } 
-    else  {
-      setPlayer(_ => X);
-    }
-  })
 
   let chooseSquare = (square) => {
-    setBoard(_ => Belt_Array.mapWithIndex(board, (i, val) => {
+    let newBoard = Belt_Array.mapWithIndex(board, (i, val) => {
       if (i == square && val == Empty) {
-        switchPlayer();
         player
-      }
+      } 
       else {
-        val 
+        val
       }
-    }))
+    })
+    setBoard(_ => newBoard)
+    if (player == X) {
+      setPlayer(_ => O)
+    } else {
+      setPlayer(_ => X)
+    }
   }
 
-  React.useEffect(() => {
-    Some(() => checkWin())
+
+  React.useEffect1(() => {
+    Some(() => {
+      Js.Console.log("Board state changed")
+      Js.Console.log(board)
   })
+  }, [board])
+
+
+  React.useEffect1(() => {
+    Some(() => {
+      Js.Console.log("Checking for a win")
+      checkWin()
+    })
+  }, [board])
+
 
 
   <div className="App"> 
+  <BoardResult value=result />
     <div className="board"> 
       <div className="row"> 
         <Square value=board[0] chooseSquare={_ => chooseSquare(0)} />
