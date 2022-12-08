@@ -9,5 +9,11 @@ open Square
         | O => "O"
         | Empty => ""
     }
-    <div className="board_result">{fill->React.string}</div> 
+    
+    let style = switch value {
+        | X | O => "display_result"
+        | Empty => "display_nothing"
+    }
+
+    <div className=style>{fill->React.string}</div> 
  }

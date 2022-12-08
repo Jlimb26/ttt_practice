@@ -11,5 +11,11 @@ type square =
         | O => "O"
         | Empty => ""
     }
-    <div onClick=chooseSquare className="square">{fill->React.string}</div> 
+    
+    let style = switch value {
+        | X | O => "square clicked"
+        | Empty => "square"
+    }
+
+    <div onClick=chooseSquare className=style>{fill->React.string}</div> 
  }
