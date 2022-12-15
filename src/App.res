@@ -3,6 +3,11 @@
 
 open Square
 
+type score = {
+  xScore: int,
+  oScore: int
+}
+
 let patterns = [
   [0, 1, 2],
   [3, 4, 5],
@@ -18,18 +23,25 @@ let initialBoardState = Belt_Array.make(9, Empty)
 
 @react.component
 let make = () => {
+  let (gameType, setGameType) = React.useState(_ => "Basic")
+  let (scores, setScores) = React.useState(_ => {oScore: 0, xScore: 0})
 
-  <div className="App"> 
-    <div className="ultimate_board">
-      <Board />
-      <Board />
-      <Board />
-      <Board />
-      <Board />
-      <Board />
-      <Board />
-      <Board />
-      <Board />
+  let display = switch gameType {
+    | "Basic" => <Board gameType=gameType/>
+    | "Ultimate" => <UltimateBoard gameType=gameType/>
+    | _ => <Board gameType=gameType/>
+  
+  }
+
+  let updateGame = (gType) => {
+    setGameType(_ => gType)
+  }
+
+  <div className="App">
+    <button onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</button> 
+    <button onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</button> 
+    <div className=gameType>
+      display
     </div>
   </div>
 }

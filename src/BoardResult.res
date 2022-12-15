@@ -3,7 +3,7 @@
 open Square
 
  @react.component
- let make = (~value: square) => {
+ let make = (~value: square, ~gameType) => {
     let fill = switch value { 
         | X => "X"
         | O => "O"
@@ -11,9 +11,10 @@ open Square
     }
     
     let style = switch value {
-        | X | O => "display_result"
-        | Empty => "display_nothing"
+        | X => "display_result x "
+        | O => "display_result o "
+        | Empty => "display_nothing "
     }
 
-    <div className=style>{fill->React.string}</div> 
+    <div className={style ++ gameType}>{fill->React.string}</div> 
  }

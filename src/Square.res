@@ -5,7 +5,8 @@ type square =
     | Empty 
  
  @react.component
- let make = (~value: square, ~chooseSquare) => {
+ let make = (~value: square, ~chooseSquare, ~gameType) => {
+
     let fill = switch value { 
         | X => "X"
         | O => "O"
@@ -13,9 +14,9 @@ type square =
     }
     
     let style = switch value {
-        | X | O => "square clicked"
-        | Empty => "square"
+        | X => "square x "
+        | O => "square o "
+        | Empty => "square "
     }
-
-    <div onClick=chooseSquare className=style>{fill->React.string}</div> 
+    <div onClick=chooseSquare className={style ++ gameType}>{fill->React.string}</div> 
  }
