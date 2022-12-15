@@ -37,6 +37,7 @@ let make = () => {
     setGameType(_ => gType)
   }
 
+
   <div className="App">
     <button onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</button> 
     <button onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</button> 

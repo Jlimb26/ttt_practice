@@ -40,7 +40,10 @@
 }
 
 .board.Basic {
-  grid-gap:2px
+  grid-gap:2px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .board.Ultimate {
