@@ -21,7 +21,8 @@ let make = (~gameType, ~player, ~setPlayer) => {
   let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
 
   let resetUltBoard = () => {
-    Js.Console.log(ultBoard)
+    Js.Console.log(ultBoard);
+    setUltBoard(_ => initialUltimateState);
   }
 
     <div className="ultimate_board">
