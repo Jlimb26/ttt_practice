@@ -25,11 +25,12 @@ let initialBoardState = Belt_Array.make(9, Empty)
 let make = () => {
   let (gameType, setGameType) = React.useState(_ => "Basic")
   let (scores, setScores) = React.useState(_ => {oScore: 0, xScore: 0})
+  let (currPlayer, setPlayer) = React.useState(_ => X) //X begins the game, but we can always change this
 
   let display = switch gameType {
-    | "Basic" => <Board gameType=gameType/>
-    | "Ultimate" => <UltimateBoard gameType=gameType/>
-    | _ => <Board gameType=gameType/>
+    | "Basic" => <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
+    | "Ultimate" => <UltimateBoard gameType=gameType currPlayer=currPlayer setPlayer=setPlayer/>
+    | _ => <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
   
   }
 

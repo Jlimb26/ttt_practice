@@ -17,9 +17,9 @@ let patterns = [
 let initialBoardState = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType) => {
+let make = (~gameType, ~player, ~setPlayer) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
-  let (player, setPlayer) = React.useState(_ => X);
+  // let (player, setPlayer) = React.useState(_ => X);
   let (result, setResult) = React.useState(_ => Empty)
 
   let checkWin = () => {
