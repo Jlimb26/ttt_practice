@@ -18,6 +18,12 @@ let initialUltimateState = Belt_Array.make(9, Empty)
 
 @react.component
 let make = (~gameType, ~player, ~setPlayer) => {
+  let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
+
+  let resetUltBoard = () => {
+    Js.Console.log(ultBoard)
+  }
+
     <div className="ultimate_board">
         <Board gameType=gameType player=player setPlayer=setPlayer/>
         <Board gameType=gameType player=player setPlayer=setPlayer/>
