@@ -17,16 +17,16 @@ let patterns = [
 let initialUltimateState = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~currPlayer, ~setPlayer) => {
+let make = (~gameType, ~player, ~setPlayer) => {
     <div className="ultimate_board">
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
-        <Board gameType=gameType player=currPlayer setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
+        <Board gameType=gameType player=player setPlayer=setPlayer/>
     </div>
 }
