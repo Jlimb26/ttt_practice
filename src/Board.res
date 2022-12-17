@@ -49,9 +49,9 @@ let make = (~gameType, ~player, ~setPlayer) => {
     }
   }
 
-  let resetBoard = () => {
-    setBoard(_ => initialBoardState)
-  }
+  // let resetBoard = () => {
+  //   setBoard(_ => initialBoardState)
+  // }
 
 
   React.useEffect1(() => {

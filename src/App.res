@@ -4,8 +4,8 @@
 open Square
 
 type score = {
-  xScore: int,
-  oScore: int
+  mutable xScore: int,
+  mutable oScore: int
 }
 
 let patterns = [
@@ -24,7 +24,7 @@ let initialBoardState = Belt_Array.make(9, Empty)
 @react.component
 let make = () => {
   let (gameType, setGameType) = React.useState(_ => "Basic")
-  let (scores, setScores) = React.useState(_ => {oScore: 0, xScore: 0})
+  let (scores, setScores) = React.useState(_ => {xScore: 0, oScore: 0})
   let (player, setPlayer) = React.useState(_ => X) //X begins the game, but we can always change this
 
   let display = switch gameType {
@@ -38,16 +38,22 @@ let make = () => {
     setGameType(_ => gType)
   }
 
-  let forfeit = () => {
-    Js.Console.log(switch player {
-      | X => "Player O won!"
-      | O => "Player X won!"
-      | Empty => "Draw"
-    })
+  let xPlaying = switch player {
+    | X => true 
+    | O => false
   }
+
+  // let forfeit = () => {
+  //   Js.Console.log(switch player {
+  //     | X => "Player O won!"
+  //     | O => "Player X won!"
+  //     | Empty => "Draw"
+  //   })
+  // }
 
 
   <div className="App">
+    <ScoreBoard xScore={scores.xScore} oScore={scores.oScore} xPlaying={xPlaying} />
     <div className="Buttons">
       <div className="Button" onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</div> 
