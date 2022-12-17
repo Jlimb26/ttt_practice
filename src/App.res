@@ -38,6 +38,14 @@ let make = () => {
     setGameType(_ => gType)
   }
 
+  let forfeit = () => {
+    Js.Console.log(switch player {
+      | X => "Player O won!"
+      | O => "Player X won!"
+      | Empty => "Draw"
+    })
+  }
+
 
   <div className="App">
     <div className="Buttons">
