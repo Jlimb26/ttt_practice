@@ -40,8 +40,12 @@ let make = () => {
 
 
   <div className="App">
-    <button onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</button> 
-    <button onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</button> 
+    <div className="Buttons">
+      <div className="Button" onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("Ultimate")}>{"Inverse"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("Ultimate")}>{"SOS"->React.string}</div> 
+    </div> 
     <div className=gameType>
       display
     </div>
