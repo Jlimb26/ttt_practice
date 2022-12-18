@@ -1,6 +1,9 @@
 %%raw(`import './App.css';`)
 @module("./logo.svg") external logo: string = "default"
 
+@@warning("-27")
+@@warning("-26")
+
 open Square
 
 let patterns = [
@@ -73,11 +76,11 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
     setBoard(_ => newBoard)
 
     if (checkHorizontalWinner(newBoard, player) || checkVerticalWinner(newBoard, player)) {
-      if (player == X) {
-        setScores(_ => {scores.xScore + 1, scores.oScore})
-      } else {
-        setScores(_ => {xScore: xScore, yScore: yScore + 1})
-      }
+      // if (player == X) {
+      //   setScores(_ => {scores.xScore + 1, scores.oScore})
+      // } else {
+      //   setScores(_ => {xScore: xScore, yScore: yScore + 1})
+      // }
       setBoard(_ => initialBoardState)
     }
 
