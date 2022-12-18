@@ -13,35 +13,14 @@
   justify-content: center;
 }
 
-/* .square {
-  background: rgba(27, 255, 255, 0.8);
-  height: 6rem;
-  width: 6rem;
-  display: flex;
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: white;
-  font-size: 6rem;
-} */
-
-.square.Basic {
-  width: 5rem;
-  height: 5rem;
-}
-
-.square.Inverse {
-  width: 5rem;
-  height: 5rem;
-}
-
-.square.Ultimate {
-  width: 3rem;
-  height: 3rem;
-  grid-gap: 100px;
-  font-size: 3em;
-  justify-content:center;
-  line-height: 1;
+  grid-gap: 2px;
+  position: relative;
+  margin: auto;
 }
 
 .board.Basic {
@@ -62,6 +41,58 @@
 
 .board.Ultimate {
   grid-gap:0px;
+}
+
+.ultimate_board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  align-items:center;
+  justify-content: center;
+  grid-gap: 20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 445px;
+}
+
+.gomuku_board {
+  display: grid;
+  grid-template-columns: repeat(15, auto);
+  align-items:center;
+  justify-content: center;
+  grid-gap: 0.5px;
+  position: absolute; 
+  top: 50%;
+  transform: translateY(-50%);
+  left: 445px;
+}
+
+.square.Basic {
+  width: 5rem;
+  height: 5rem;
+}
+
+.square.Inverse {
+  width: 5rem;
+  height: 5rem;
+}
+
+.square.Gomoku {
+  width: 1.65rem;
+  height: 1.65rem;
+  grid-gap: 100px;
+  font-size: 1.5em;
+  justify-content: center;
+  line-height: 1;
+}
+
+.square.Ultimate {
+  width: 3rem;
+  height: 3rem;
+  grid-gap: 100px;
+  font-size: 3em;
+  justify-content:center;
+  line-height: 1;
 }
 
 .square {
@@ -95,7 +126,6 @@
   padding-top: 0px;
   top: 50%;
   transform: translateY(-50%);
-  left: 608px;
 }
 
 .display_result:hover {
@@ -107,7 +137,7 @@
   width: 12rem;
   font-size: 200px;
   top: 0%;
-  transform: translateY(0%)
+  transform: translateY(0%);
 }
 
 
@@ -127,29 +157,6 @@
 
 .square:hover {
   box-shadow: 0px 0px 15px #888;
-}
-
-
-.board {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  align-items: center;
-  justify-content: center;
-  grid-gap: 2px;
-  position: relative;
-  margin: auto;
-}
-
-.ultimate_board {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  align-items:center;
-  justify-content: center;
-  grid-gap: 20px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 445px;
 }
 
 .display_result:hover {
@@ -199,6 +206,7 @@
   box-shadow: 0px 0px 8px #888;
   border-radius: 0.5rem;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .score {

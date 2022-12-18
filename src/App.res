@@ -31,6 +31,7 @@ let make = () => {
     | "Basic" => <Board gameType=gameType player=player setPlayer=setPlayer/>
     | "Ultimate" => <UltimateBoard gameType=gameType player=player setPlayer=setPlayer/>
     | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer/>
+    | "Gomoku" => <Gomoku gameType=gameType player=player setPlayer=setPlayer/>
     | _ => <Board gameType=gameType player=player setPlayer=setPlayer/>
   
   }
@@ -60,7 +61,8 @@ let make = () => {
       <div className="Button" onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Inverse")}>{"Inverse"->React.string}</div> 
-      <div className="Button" onClick={_ => updateGame("Ultimate")}>{"SOS"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("Gomoku")}>{"Gomoku"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("Notako")}>{"Notako"->React.string}</div> 
     </div> 
     <div className=gameType>
       display
