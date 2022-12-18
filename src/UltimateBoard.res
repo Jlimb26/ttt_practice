@@ -15,25 +15,64 @@ let patterns = [
 ]
 
 let initialUltimateState = Belt_Array.make(9, Empty)
+let initialBoardStates = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
-//   let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
+let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~winningPlayer) => {
+  let (result, setResult) = React.useState(_ => Empty);
+  let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
+  let (boards, setBoards) = React.useState(_ => initialBoardStates);
 
-//   let resetUltBoard = () => {
-//     Js.Console.log(ultBoard);
-//     setUltBoard(_ => initialUltimateState);
-//   }
+  let resetUltBoard = () => {
+    Js.Console.log(ultBoard);
+    setBoards(_ => initialBoardStates);
+    setUltBoard(_ => initialUltimateState);
+  }
+
+  let checkWin = (ultBoard) => {
+    Belt_Array.forEach(patterns, (currPattern) => {
+      let firstPlayer = ultBoard[currPattern[0]]
+      if Belt_Array.every(currPattern, (x) => ultBoard[x] == firstPlayer) && firstPlayer != Empty {
+        setResult(_ => firstPlayer);
+        winningPlayer(_ => firstPlayer);
+        Js.Console.log("Someone won the ultimate TTT Game!")
+        //TODO: INCREMENT THE SCOREBOARD HERE
+        resetUltBoard();
+      }
+    })
+  }
+
+  let changeBoardState = (thisi, givenPlayer) => {
+    let newBoard = Belt_Array.mapWithIndex(ultBoard, (i, val) => {
+      if (i == thisi && val == Empty) {
+        givenPlayer
+      } 
+      else {
+        val
+      }
+    })
+    setUltBoard(_ => newBoard);
+    checkWin(newBoard);
+  }
 
     <div className="ultimate_board">
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=0 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=1 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=2 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=3 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=4 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=5 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=6 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=7 />
+        <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
+          setScores=setScores passState=changeBoardState val=8 />
     </div>
 }
