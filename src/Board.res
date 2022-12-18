@@ -17,9 +17,8 @@ let patterns = [
 let initialBoardState = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer) => {
+let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
-  // let (player, setPlayer) = React.useState(_ => X);
   let (result, setResult) = React.useState(_ => Empty)
 
   let checkWin = (newBoard) => {
@@ -41,13 +40,15 @@ let make = (~gameType, ~player, ~setPlayer) => {
         val
       }
     })
-    setBoard(_ => newBoard)
-    if (player == X) {
-      setPlayer(_ => O)
-    } else {
-      setPlayer(_ => X)
+    if (newBoard != board) {
+      if (player == X) {
+        setPlayer(_ => O)
+      } else {
+        setPlayer(_ => X)
+      }
     }
     checkWin(newBoard);
+    setBoard(_ => newBoard);
   }
 
   // let resetBoard = () => {

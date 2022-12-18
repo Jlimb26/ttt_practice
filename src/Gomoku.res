@@ -16,20 +16,40 @@ let patterns = [
 
 let initialBoardState = Belt_Array.make(225, Empty)
 
-@react.component
-let make = (~gameType, ~player, ~setPlayer) => {
-  let (board, setBoard) = React.useState(_ => initialBoardState);
-  // let (player, setPlayer) = React.useState(_ => X);
-  let (result, setResult) = React.useState(_ => Empty)
+let horizontals = Belt_Array.make(15, 0);
+let verticals = Belt_Array.make(15, 0);
 
-  let checkWin = () => {
-    Belt_Array.forEach(patterns, (currPattern) => {
-      let firstPlayer = board[currPattern[0]]
-      if Belt_Array.every(currPattern, (x) => board[x] == firstPlayer) && firstPlayer != Empty {
-        setResult(_ => firstPlayer)
-        Js.Console.log("Someone won!")
+@react.component
+let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
+  let (board, setBoard) = React.useState(_ => initialBoardState);
+  let (result, setResult) = React.useState(_ => Empty)
+  
+
+  let checkHorizontalWinner = (newBoard, currPlayer) => {
+    Belt_Array.forEachWithIndex(newBoard, (i, value) => {
+      if (horizontals[i / 15] >= 5) {
+        horizontals[i / 15] = horizontals[i / 15]
+      } else if (value == currPlayer) {
+        horizontals[i / 15] = horizontals[i / 15] + 1 
+        Js.Console.log(horizontals[i / 15])
+      } else {
+        horizontals[i / 15] = 0
       }
     })
+    Js.Array.find(x => x >= 5, horizontals) == Some(5)
+  }
+
+  let checkVerticalWinner = (newBoard, currPlayer) => {
+    Belt_Array.forEachWithIndex(newBoard, (i, value) => {
+      if (verticals[mod(i, 15)] >= 5) {
+        verticals[mod(i, 15)] = verticals[mod(i, 15)]
+      } else if (value == currPlayer) {
+        verticals[mod(i, 15)] = verticals[mod(i, 15)] + 1
+      } else {
+        verticals[mod(i, 15)] = 0
+      }
+    })
+    Js.Array.find(x => x >= 5, verticals) == Some(5)
   }
 
   let chooseSquare = (square) => {
@@ -41,12 +61,26 @@ let make = (~gameType, ~player, ~setPlayer) => {
         val
       }
     })
-    setBoard(_ => newBoard)
-    if (player == X) {
-      setPlayer(_ => O)
-    } else {
-      setPlayer(_ => X)
+
+    if (newBoard != board) {
+      if (player == X) {
+        setPlayer(_ => O)
+      } else {
+        setPlayer(_ => X)
+      }
     }
+
+    setBoard(_ => newBoard)
+
+    if (checkHorizontalWinner(newBoard, player) || checkVerticalWinner(newBoard, player)) {
+      if (player == X) {
+        setScores(_ => {scores.xScore + 1, scores.oScore})
+      } else {
+        setScores(_ => {xScore: xScore, yScore: yScore + 1})
+      }
+      setBoard(_ => initialBoardState)
+    }
+
   }
 
   // let resetBoard = () => {
@@ -56,19 +90,12 @@ let make = (~gameType, ~player, ~setPlayer) => {
 
   React.useEffect1(() => {
     Some(() => {
-      Js.Console.log("Board state changed")
-      Js.Console.log(board)
+      Js.Console.log("Horizontal")
+      Js.Console.log(horizontals)
+      Js.Console.log("Result")
+      Js.Console.log(result)
   })
   }, [board])
-
-
-  React.useEffect1(() => {
-    Some(() => {
-      Js.Console.log("Checking for a win")
-      checkWin()
-    })
-  }, [board])
-
 
 
   <div> 
