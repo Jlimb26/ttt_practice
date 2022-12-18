@@ -30,6 +30,11 @@
   height: 5rem;
 }
 
+.square.Inverse {
+  width: 5rem;
+  height: 5rem;
+}
+
 .square.Ultimate {
   width: 3rem;
   height: 3rem;
@@ -44,7 +49,15 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 608px;
+  left: 610px;
+}
+
+.board.Inverse {
+  grid-gap: 2px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 610px;
 }
 
 .board.Ultimate {
@@ -82,9 +95,6 @@
   padding-top: 0px;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.display_result.Basic {
   left: 608px;
 }
 
