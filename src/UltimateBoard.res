@@ -1,6 +1,9 @@
 %%raw(`import './App.css';`)
 @module("./logo.svg") external logo: string = "default"
 
+@@warning("-27")
+@@warning("-26")
+
 open Square
 
 let patterns = [
@@ -18,7 +21,7 @@ let initialUltimateState = Belt_Array.make(9, Empty)
 let initialBoardStates = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~winningPlayer) => {
+let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
   let (result, setResult) = React.useState(_ => Empty);
   let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
   let (boards, setBoards) = React.useState(_ => initialBoardStates);
@@ -34,7 +37,7 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~winningPlayer)
       let firstPlayer = ultBoard[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => ultBoard[x] == firstPlayer) && firstPlayer != Empty {
         setResult(_ => firstPlayer);
-        winningPlayer(_ => firstPlayer);
+        // winningPlayer(_ => firstPlayer);
         Js.Console.log("Someone won the ultimate TTT Game!")
         //TODO: INCREMENT THE SCOREBOARD HERE
         resetUltBoard();
@@ -57,22 +60,22 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~winningPlayer)
 
     <div className="ultimate_board">
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=0 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=1 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=2 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=3 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=4 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=5 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=6 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=7 />
+          setScores=setScores/>
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores passState=changeBoardState val=8 />
+          setScores=setScores/>
     </div>
 }

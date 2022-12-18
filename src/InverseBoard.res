@@ -1,6 +1,9 @@
 %%raw(`import './App.css';`)
 @module("./logo.svg") external logo: string = "default"
 
+@@warning("-27")
+@@warning("-26")
+
 open Square
 
 let patterns = [
