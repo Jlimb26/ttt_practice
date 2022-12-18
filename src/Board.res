@@ -22,10 +22,10 @@ let make = (~gameType, ~player, ~setPlayer) => {
   // let (player, setPlayer) = React.useState(_ => X);
   let (result, setResult) = React.useState(_ => Empty)
 
-  let checkWin = () => {
+  let checkWin = (newBoard) => {
     Belt_Array.forEach(patterns, (currPattern) => {
-      let firstPlayer = board[currPattern[0]]
-      if Belt_Array.every(currPattern, (x) => board[x] == firstPlayer) && firstPlayer != Empty {
+      let firstPlayer = newBoard[currPattern[0]]
+      if Belt_Array.every(currPattern, (x) => newBoard[x] == firstPlayer) && firstPlayer != Empty {
         setResult(_ => firstPlayer)
         Js.Console.log("Someone won!")
       }
@@ -47,6 +47,7 @@ let make = (~gameType, ~player, ~setPlayer) => {
     } else {
       setPlayer(_ => X)
     }
+    checkWin(newBoard);
   }
 
   // let resetBoard = () => {
@@ -54,20 +55,20 @@ let make = (~gameType, ~player, ~setPlayer) => {
   // }
 
 
-  React.useEffect1(() => {
-    Some(() => {
-      Js.Console.log("Board state changed")
-      Js.Console.log(board)
-  })
-  }, [board])
+  // React.useEffect1(() => {
+  //   Some(() => {
+  //     Js.Console.log("Board state changed")
+  //     Js.Console.log(board)
+  // })
+  // }, [board])
 
 
-  React.useEffect1(() => {
-    Some(() => {
-      Js.Console.log("Checking for a win")
-      checkWin()
-    })
-  }, [board])
+  // React.useEffect1(() => {
+  //   Some(() => {
+  //     Js.Console.log("Checking for a win")
+  //     checkWin()
+  //   })
+  // }, [board])
 
 
 
