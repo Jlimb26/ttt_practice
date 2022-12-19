@@ -46,6 +46,7 @@ let make = () => {
     | "Wild" => <WildBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer xScore=xScore setXscore=setXscore oScore=oScore setOscore=setOscore/>
     | "Gomoku" => <GomokuBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
+    | "O&C" => <O_C gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | _ => <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
   }
 
@@ -77,7 +78,7 @@ let make = () => {
       <div className="Button" onClick={_ => updateGame("Inverse")}>{"Inverse"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Wild")}>{"Wild"->React.string}</div>
       <div className="Button" onClick={_ => updateGame("Gomoku")}>{"Gomoku"->React.string}</div> 
-      <div className="Button" onClick={_ => updateGame("Notakto")}>{"Notakto"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("O&C")}>{"O&C"->React.string}</div> 
     </div> 
     <div className=gameType>
       display

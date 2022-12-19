@@ -37,7 +37,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  left: 610px;
+  left: 305px;
 }
 
 .board.Inverse {
@@ -81,6 +81,18 @@
   top: 50%;
   transform: translateY(-50%);
   left: 445px;
+}
+
+.o_a_board {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  align-items: center;
+  justify-content: center;
+  grid-gap: 1px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 460px;
 }
 
 .square {
@@ -239,8 +251,30 @@
 
 .moveOptions {
   position: absolute;
-  left: 638px;
+  left: 635px;
   top: 70%;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0px 0px 8px #888;
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+}
+
+.moveOptions.o_c {
+  left: 1150px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.option {
+  width: 100%;
+  text-align: center;
+  padding:1rem 0;
+  background: none;
+  font-family: "Fredoka One", sans-serif;
 }
 
 .x-option {
@@ -248,8 +282,10 @@
   border: none;
   font-family: "Fredoka One", sans-serif;
   font-size: 125px;
-  padding-right: 35px;
   opacity: 50%;
+  background: none;
+  border: 5px solid;
+  border-radius:0.5rem 0 0 0.5rem;
 }
 
 .o-option {
@@ -258,6 +294,9 @@
   font-family: "Fredoka One", sans-serif;
   font-size: 125px;
   opacity: 50%;
+  background: none;
+  border: 5px solid;
+  border-radius:0 0.5rem 0.5rem 0;
 }
 
 .x-option:hover {
@@ -274,5 +313,55 @@
 
 .clicked:hover {
   opacity: 100%;
+}
+
+.alignment_cover {
+  height: 100%;
+  background-color: black;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0%;
+  z-index: 2;;
+}
+
+.select_alignment {
+  background: white; 
+  position: absolute;
+  top: 50%;
+  left: 33%;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+
+
+.alignment_text {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 50px;
+  background-color: black;
+  color: white;
+  border:black;
+}
+
+.alignment_buttons {
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.aButton {
+  width: 100%;
+  text-align: center;
+  padding:1rem 0;
+  background: none;
+  font-family: "Fredoka One", sans-serif;
+  border: black;
+}
+
+.chaos {
+  background-color: rgb(255, 70, 37);
+}
+
+.order {
+  background-color: rgb(44, 135, 255);
 }
 

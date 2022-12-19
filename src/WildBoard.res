@@ -93,8 +93,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
             <Square value=board[8] chooseSquare={_ => chooseSquare(8)} gameType=gameType/>
         </div>
         <div className="moveOptions">
-            <button className={"x-option " ++ xClicked} onClick=(_ => setOption(_ => X))>{"X"->React.string}</button>
-            <button className={"o-option " ++ oClicked}onClick={_ => setOption(_ => O)}>{"O"->React.string}</button>
+            <button className={"x-option option " ++ xClicked} onClick=(_ => setOption(_ => X))>{"X"->React.string}</button>
+            <button className={"o-option option " ++ oClicked}onClick={_ => setOption(_ => O)}>{"O"->React.string}</button>
         </div> 
     </div>
 }
