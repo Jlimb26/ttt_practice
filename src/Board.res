@@ -24,29 +24,33 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
 
+  //Checks win for a given 3x3 board
+  //If the optional passState function parameter exists (is a Some), this will also update the parent with this win.
   let checkWin = (newBoard) => {
     Belt_Array.forEach(patterns, (currPattern) => {
       let firstPlayer = newBoard[currPattern[0]]
+      
       if Belt_Array.every(currPattern, (x) => newBoard[x] == firstPlayer) && firstPlayer != Empty {
+        Js.Console.log("Someone won!")
         setResult(_ => firstPlayer);
+
         switch passState {
           | None => Js.log("No passState");
           | Some(fun) => Js.log("Running Pass state"); fun(val, player);
         }
-        Js.Console.log("Someone won!")
       }
     })
   }
 
+  //Handles updating a square to X or O
   let chooseSquare = (square) => {
+    //Checks if this is a valid click
     let newBoard = Belt_Array.mapWithIndex(board, (i, val) => {
-      if (i == square && val == Empty) {
-        player
-      } 
-      else {
-        val
-      }
+      if (i == square && val == Empty) { player } 
+      else { val }
     })
+
+    //Updates next player if a valid move was made
     if (newBoard != board) {
       if (player == X) {
         setPlayer(_ => O)
@@ -54,6 +58,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
         setPlayer(_ => X)
       }
     }
+
+    //Checks if a player has won the game
     checkWin(newBoard);
     setBoard(_ => newBoard);
   }
@@ -79,7 +85,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
   // }, [board])
 
 
-
+  //Rendering info for the winner (BoardResult), as well as each individual square.
   <div> 
     <BoardResult value=result gameType=gameType/>
     <div className={"board " ++ gameType}> 

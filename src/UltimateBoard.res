@@ -56,7 +56,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~winningPlayer=?) =
     checkWin(newBoard);
   }
 
-  //Rendering info for this board
+  //Rendering info for this Ultimate board of 3x3 tic-tac-toe Boards
   <div className="ultimate_board">
       <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
         passState=changeBoardState val=0 />
