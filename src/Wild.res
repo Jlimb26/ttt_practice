@@ -38,7 +38,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   let chooseSquare = (square) => {
     let newBoard = Belt_Array.mapWithIndex(board, (i, val) => {
       if (i == square && val == Empty) {
-        player
+        option
       } 
       else {
         val
