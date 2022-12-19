@@ -42,11 +42,11 @@ let make = () => {
 
   let display = switch gameType {
     | "Basic" => <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
-    | "Ultimate" => <UltimateBoard gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
+    | "Ultimate" => <UltimateBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | "Wild" => <Wild gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer xScore=xScore setXscore=setXscore oScore=oScore setOscore=setOscore/>
     | "Gomoku" => <Gomoku gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
-    | _ => <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
+    | _ => <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
   }
 
   let updateGame = (gType) => {
