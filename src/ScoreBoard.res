@@ -14,8 +14,8 @@
     }
 
     <div className="scoreboard">
-        <span className={"score x-score " ++ xTurn}>{{"X - " ++ {xScore}->Belt.Int.toString}->React.string}</span>
-        <span className={"score o-score " ++ oTurn}>{{"O - " ++ {oScore}->Belt.Int.toString}->React.string}</span>
+        <span className={"score x-score " ++ xTurn}>{{"P1 - " ++ {xScore}->Belt.Int.toString}->React.string}</span>
+        <span className={"score o-score " ++ oTurn}>{{"P2 - " ++ {oScore}->Belt.Int.toString}->React.string}</span>
     </div>
     
  }
