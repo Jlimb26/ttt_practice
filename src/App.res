@@ -43,8 +43,9 @@ let make = () => {
   let display = switch gameType {
     | "Basic" => <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
     | "Ultimate" => <UltimateBoard gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
+    | "Wild" => <Wild gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer xScore=xScore setXscore=setXscore oScore=oScore setOscore=setOscore/>
-    | "Gomoku" => <Gomoku gameType=gameType player=player setPlayer=setPlayer oScore=oScore setOscore=setOscore xScore=xScore setXscore=setXscore/>
+    | "Gomoku" => <Gomoku gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | _ => <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
   
   }
@@ -74,6 +75,7 @@ let make = () => {
       <div className="Button" onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Inverse")}>{"Inverse"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("Wild")}>{"Wild"->React.string}</div>
       <div className="Button" onClick={_ => updateGame("Gomoku")}>{"Gomoku"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Notako")}>{"Notako"->React.string}</div> 
     </div> 

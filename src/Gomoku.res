@@ -23,7 +23,7 @@ let horizontals = Belt_Array.make(15, 0);
 let verticals = Belt_Array.make(15, 0);
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOscore) => {
+let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
 
@@ -78,11 +78,7 @@ let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOs
     setBoard(_ => newBoard)
 
     if (checkHorizontalWinner(newBoard, player) || checkVerticalWinner(newBoard, player)) {
-      if (player == X) {
-        setXscore(_ => xScore + 1)
-      } else {
-        setOscore(_ => oScore + 1)
-      }
+      incrementScore(player)
       setBoard(_ => initialBoardState)
       Belt_Array.forEachWithIndex(horizontals, (i, val) => horizontals[i] = 0)
       Belt_Array.forEachWithIndex(verticals, (i, val) => verticals[i] = 0)

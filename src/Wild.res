@@ -20,7 +20,7 @@ let patterns = [
 let initialBoardState = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOscore) => {
+let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   // let (player, setPlayer) = React.useState(_ => X);
 
@@ -28,11 +28,7 @@ let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOs
     Belt_Array.forEach(patterns, (currPattern) => {
       let firstPlayer = newBoard[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => newBoard[x] == firstPlayer) && firstPlayer != Empty {
-        if (firstPlayer == X) {
-            setOscore(_ => oScore + 1)
-        } else {
-            setXscore(_ => xScore + 1)
-        }
+        incrementScore(player)
         setBoard(_ => initialBoardState)
       }
     })
