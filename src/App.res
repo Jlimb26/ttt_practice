@@ -28,13 +28,15 @@ let initialBoardState = Belt_Array.make(9, Empty)
 let make = () => {
   let (gameType, setGameType) = React.useState(_ => "Basic")
   let (scores, setScores) = React.useState(_ => {xScore: 0, oScore: 0})
+  let (xScore, setXscore) = React.useState(_ => 0)
+  let (oScore, setOscore) = React.useState(_ => 0)
   let (player, setPlayer) = React.useState(_ => X) //X begins the game, but we can always change this
 
   let display = switch gameType {
     | "Basic" => <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
     | "Ultimate" => <UltimateBoard gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-    | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
-    | "Gomoku" => <Gomoku gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
+    | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer xScore=xScore setXscore=setXscore oScore=oScore setOscore=setOscore/>
+    | "Gomoku" => <Gomoku gameType=gameType player=player setPlayer=setPlayer oScore=oScore setOscore=setOscore xScore=xScore setXscore=setXscore/>
     | _ => <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
   
   }
@@ -59,7 +61,7 @@ let make = () => {
 
 
   <div className="App">
-    <ScoreBoard xScore={0} oScore={0} xPlaying={xPlaying} />
+    <ScoreBoard xScore={xScore} oScore={oScore} xPlaying={xPlaying} />
     <div className="Buttons">
       <div className="Button" onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</div> 

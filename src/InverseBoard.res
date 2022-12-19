@@ -20,21 +20,19 @@ let patterns = [
 let initialBoardState = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
+let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOscore) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   // let (player, setPlayer) = React.useState(_ => X);
-  let (result, setResult) = React.useState(_ => Empty)
 
-  let checkWin = () => {
+  let checkWin = (newBoard) => {
     Belt_Array.forEach(patterns, (currPattern) => {
       let firstPlayer = board[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => board[x] == firstPlayer) && firstPlayer != Empty {
         if (firstPlayer == X) {
-            setResult(_ => O)
+            setOscore(_ => oScore + 1)
         } else {
-            setResult(_ => X)
+            setXscore(_ => xScore + 1)
         }
-        Js.Console.log("Someone won!")
       }
     })
   }
@@ -49,6 +47,7 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
       }
     })
     setBoard(_ => newBoard)
+    checkWin(_ => newBoard)
     if (player == X) {
       setPlayer(_ => O)
     } else {
@@ -69,17 +68,9 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
   }, [board])
 
 
-  React.useEffect1(() => {
-    Some(() => {
-      Js.Console.log("Checking for a win")
-      checkWin()
-    })
-  }, [board])
-
 
 
   <div> 
-    <BoardResult value=result gameType=gameType/>
     <div className={"board " ++ gameType}> 
         <Square value=board[0] chooseSquare={_ => chooseSquare(0)} gameType=gameType/>
         <Square value=board[1] chooseSquare={_ => chooseSquare(1)} gameType=gameType/>

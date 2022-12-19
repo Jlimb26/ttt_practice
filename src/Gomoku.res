@@ -23,10 +23,9 @@ let horizontals = Belt_Array.make(15, 0);
 let verticals = Belt_Array.make(15, 0);
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
+let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOscore) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
-  
 
   let checkHorizontalWinner = (newBoard, currPlayer) => {
     Belt_Array.forEachWithIndex(newBoard, (i, value) => {
@@ -34,7 +33,6 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
         horizontals[i / 15] = horizontals[i / 15]
       } else if (value == currPlayer) {
         horizontals[i / 15] = horizontals[i / 15] + 1 
-        Js.Console.log(horizontals[i / 15])
       } else {
         horizontals[i / 15] = 0
       }
@@ -53,6 +51,10 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
       }
     })
     Js.Array.find(x => x >= 5, verticals) == Some(5)
+  }
+
+  let resetList = (l) => {
+    Belt_Array.map(l, (val) => 0)
   }
 
   let chooseSquare = (square) => {
@@ -76,12 +78,14 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
     setBoard(_ => newBoard)
 
     if (checkHorizontalWinner(newBoard, player) || checkVerticalWinner(newBoard, player)) {
-      // if (player == X) {
-      //   setScores(_ => {scores.xScore + 1, scores.oScore})
-      // } else {
-      //   setScores(_ => {xScore: xScore, yScore: yScore + 1})
-      // }
+      if (player == X) {
+        setXscore(_ => xScore + 1)
+      } else {
+        setOscore(_ => oScore + 1)
+      }
       setBoard(_ => initialBoardState)
+      Belt_Array.forEachWithIndex(horizontals, (i, val) => horizontals[i] = 0)
+      Belt_Array.forEachWithIndex(verticals, (i, val) => verticals[i] = 0)
     }
 
   }
@@ -95,8 +99,8 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
     Some(() => {
       Js.Console.log("Horizontal")
       Js.Console.log(horizontals)
-      Js.Console.log("Result")
-      Js.Console.log(result)
+      Js.Console.log("Vertical")
+      Js.Console.log(verticals)
   })
   }, [board])
 
