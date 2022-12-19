@@ -1,9 +1,6 @@
 %%raw(`import './App.css';`)
 @module("./logo.svg") external logo: string = "default"
 
-@@warning("-27")
-@@warning("-26")
-
 open Square
 
 let patterns = [
@@ -21,7 +18,7 @@ let initialUltimateState = Belt_Array.make(9, Empty)
 let initialBoardStates = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
+let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~winningPlayer=?) => {
   let (result, setResult) = React.useState(_ => Empty);
   let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
   let (boards, setBoards) = React.useState(_ => initialBoardStates);
@@ -33,6 +30,7 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
   }
 
   let checkWin = (ultBoard) => {
+    // Some(
     Belt_Array.forEach(patterns, (currPattern) => {
       let firstPlayer = ultBoard[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => ultBoard[x] == firstPlayer) && firstPlayer != Empty {
@@ -43,6 +41,7 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
         resetUltBoard();
       }
     })
+    // )
   }
 
   let changeBoardState = (thisi, givenPlayer) => {
@@ -55,27 +54,29 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
       }
     })
     setUltBoard(_ => newBoard);
+    Js.log("setting ult board")
+    Js.log(newBoard);
     checkWin(newBoard);
   }
 
     <div className="ultimate_board">
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=0 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=1 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=2 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=3 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=4 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=5 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=6 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=7 />
         <Board gameType=gameType player=player setPlayer=setPlayer scores=scores 
-          setScores=setScores/>
+          setScores=setScores passState=changeBoardState val=8 />
     </div>
 }
