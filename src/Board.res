@@ -84,6 +84,5 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
         <Square value=board[7] chooseSquare={_ => chooseSquare(7)} gameType=gameType/>
         <Square value=board[8] chooseSquare={_ => chooseSquare(8)} gameType=gameType/>
     </div>
-     <button className="reset_button" onClick=(_ => resetBoard())>{"Reset"->React.string}</button>
   </div>
 }
