@@ -22,8 +22,6 @@ let initialBoardState = Belt_Array.make(9, Empty)
 //Wrapper class for Board, implements the win condition for basic board
 @react.component
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
-  let (board, setBoard) = React.useState(_ => initialBoardState);
-  let (result, setResult) = React.useState(_ => Empty)
 
   // let resetBoard = () => {
   //   setBoard(_ => initialBoardState)
@@ -37,6 +35,6 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   //Rendering info for the winner (BoardResult), as well as each individual square.
     <div className={"board " ++ gameType}> 
       <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeWin val=0 />
+        passState=changeWin />
     </div>
 }
