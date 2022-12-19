@@ -35,8 +35,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
         setResult(_ => firstPlayer);
 
         switch passState {
-          | None => Js.log("No passState");
-          | Some(fun) => Js.log("Running Pass state"); fun(val, player);
+          | None => Js.log();
+          | Some(fun) => fun(val, player);
         }
       }
     })
