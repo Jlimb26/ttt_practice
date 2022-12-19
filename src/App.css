@@ -125,7 +125,6 @@
   text-align:center;
   display:flex;
   padding-top: 0px;
-  top: 50%;
   transform: translateY(-50%);
   font-family: "Fredoka One", sans-serif;
 }
@@ -138,7 +137,6 @@
   height: 12rem; 
   width: 12rem;
   font-size: 200px;
-  top: 0%;
   transform: translateY(0%);
 }
 
