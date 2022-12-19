@@ -21,44 +21,38 @@ let initialBoardState = Belt_Array.make(225, Empty)
 
 let horizontals = Belt_Array.make(15, 0);
 let verticals = Belt_Array.make(15, 0);
-let diag1 = Belt_Array.make(29, 0);
+let diag1 = Belt_Array.make(15, 0);
+let diag2 = Belt_Array.make(29, 0);
+let diag3 = Belt_Array.make(15, 0);
 
 @react.component
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
 
-  let checkHorizontalWinner = (newBoard, currPlayer) => {
-    Belt_Array.forEachWithIndex(newBoard, (i, value) => {
-      if (horizontals[i / 15] >= 5) {
-        horizontals[i / 15] = horizontals[i / 15]
-      } else if (value == currPlayer) {
-        horizontals[i / 15] = horizontals[i / 15] + 1 
-      } else {
-        horizontals[i / 15] = 0
-      }
-    })
-    Js.Array.find(x => x >= 5, horizontals) == Some(5)
-  }
-
-  let checkVerticalWinner = (newBoard, currPlayer) => {
-    Belt_Array.forEachWithIndex(newBoard, (i, value) => {
-      if (verticals[mod(i, 15)] >= 5) {
-        verticals[mod(i, 15)] = verticals[mod(i, 15)]
-      } else if (value == currPlayer) {
-        verticals[mod(i, 15)] = verticals[mod(i, 15)] + 1
-      } else {
-        verticals[mod(i, 15)] = 0
-      }
-    })
-    Js.Array.find(x => x >= 5, verticals) == Some(5)
-  }
 
   // let checkDiag1Winner = (newBoard, currPlayer) => {
   //   Belt_Array.forEachWithIndex(newBoard, (i, value) => {
-
+  //     if (diag1[mod(i, 15) - i/15] >= 5) {
+  //       diag1[mod(i, 15) - i/15] = diag1[]
+  //     })
   //   })
   // }
+
+  let checkWinner = (newBoard, currPlayer, stride, direction) => {
+    Belt_Array.forEachWithIndex(newBoard, (i, value) => {
+      if (stride(i) < 0) {
+        direction[0] = direction[0]
+      } else if (direction[stride(i)] >= 5) {
+        direction[stride(i)] = direction[stride(i)]
+      } else if (value == currPlayer) {
+        direction[stride(i)] = direction[stride(i)] + 1
+      } else {
+        direction[stride(i)] = 0
+      }
+    })
+    Js.Array.find(x => x >= 5, direction) == Some(5)
+  }
 
   let resetList = (l) => {
     Belt_Array.map(l, (val) => 0)
@@ -84,11 +78,18 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
 
     setBoard(_ => newBoard)
 
-    if (checkHorizontalWinner(newBoard, player) || checkVerticalWinner(newBoard, player)) {
+    if (checkWinner(newBoard, player, (x) => x / 15, horizontals) || 
+        checkWinner(newBoard, player, (x) => mod(x, 15), verticals) ||
+        checkWinner(newBoard, player, (x) => mod(x, 15) - x/15, diag1) ||
+        checkWinner(newBoard, player, (x) => mod(x, 15) + x/15, diag2) ||
+        checkWinner(newBoard, player, (x) => -mod(x, 15) + x/15, diag3)){
       incrementScore(player)
       setBoard(_ => initialBoardState)
       Belt_Array.forEachWithIndex(horizontals, (i, val) => horizontals[i] = 0)
       Belt_Array.forEachWithIndex(verticals, (i, val) => verticals[i] = 0)
+      Belt_Array.forEachWithIndex(diag1, (i, val) => diag1[i] = 0)
+      Belt_Array.forEachWithIndex(diag2, (i, val) => diag2[i] = 0)
+      Belt_Array.forEachWithIndex(diag3, (i, val) => diag3[i] = 0)
     }
 
   }
@@ -104,6 +105,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
       Js.Console.log(horizontals)
       Js.Console.log("Vertical")
       Js.Console.log(verticals)
+      Js.Console.log("d1")
+      Js.Console.log(diag1)
   })
   }, [board])
 
@@ -112,7 +115,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
     <BoardResult value=result gameType=gameType/>
     <div className="gomuku_board"> 
         {board -> Belt.Array.mapWithIndex((i, val) => {
-            <Square value=val chooseSquare={_ => chooseSquare(i)} gameType=gameType/>
+          <Square value=val chooseSquare={_ => chooseSquare(i)} gameType=gameType/>
+            // <MathSquare value={-mod(i, 15) + i/15} chooseSquare={_ => chooseSquare(i)} gameType=gameType/>
         })->React.array}
     </div>
   </div>
