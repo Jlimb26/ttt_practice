@@ -20,7 +20,7 @@ let patterns = [
 let initialBoardState = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
+let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~passState=?, ~val=0) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
 
@@ -29,7 +29,10 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores) => {
       let firstPlayer = newBoard[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => newBoard[x] == firstPlayer) && firstPlayer != Empty {
         setResult(_ => firstPlayer);
-        // passState(val, firstPlayer);
+        switch passState {
+          | None => Js.log("No passState");
+          | Some(fun) => Js.log("Running Pass state"); fun(val, player);
+        }
         Js.Console.log("Someone won!")
       }
     })
