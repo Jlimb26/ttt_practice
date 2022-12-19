@@ -68,22 +68,6 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
     setBoard(_ => newBoard);
   }
 
-  // React.useEffect1(() => {
-  //   Some(() => {
-  //     Js.Console.log("Board state changed")
-  //     Js.Console.log(board)
-  // })
-  // }, [board])
-
-
-  // React.useEffect1(() => {
-  //   Some(() => {
-  //     Js.Console.log("Checking for a win")
-  //     checkWin()
-  //   })
-  // }, [board])
-
-
   //Rendering info for the winner (BoardResult), as well as each individual square.
   <div> 
     <BoardResult value=result gameType=gameType/>
