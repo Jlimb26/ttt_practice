@@ -32,6 +32,14 @@ let make = () => {
   let (oScore, setOscore) = React.useState(_ => 0)
   let (player, setPlayer) = React.useState(_ => X) //X begins the game, but we can always change this
 
+  let incrementScore = (player) => {
+    switch player {
+      | X => setXscore(_ => xScore + 1);
+      | O => setOscore(_ => oScore + 1);
+      | Empty => Js.log("Should not be reached")
+    }
+  }
+
   let display = switch gameType {
     | "Basic" => <Board gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
     | "Ultimate" => <UltimateBoard gameType=gameType player=player setPlayer=setPlayer scores=scores setScores=setScores/>
