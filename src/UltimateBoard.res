@@ -18,30 +18,26 @@ let initialUltimateState = Belt_Array.make(9, Empty)
 let initialBoardStates = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~winningPlayer=?) => {
-  let (result, setResult) = React.useState(_ => Empty);
+let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~incrementScore , ~winningPlayer=?) => {
   let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
   let (boards, setBoards) = React.useState(_ => initialBoardStates);
 
   let resetUltBoard = () => {
-    Js.Console.log(ultBoard);
+    // Js.Console.log(ultBoard);
     setBoards(_ => initialBoardStates);
     setUltBoard(_ => initialUltimateState);
   }
 
   let checkWin = (ultBoard) => {
-    // Some(
     Belt_Array.forEach(patterns, (currPattern) => {
       let firstPlayer = ultBoard[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => ultBoard[x] == firstPlayer) && firstPlayer != Empty {
-        setResult(_ => firstPlayer);
-        // winningPlayer(_ => firstPlayer);
+        incrementScore(firstPlayer);
+
         Js.Console.log("Someone won the ultimate TTT Game!")
-        //TODO: INCREMENT THE SCOREBOARD HERE
         resetUltBoard();
       }
     })
-    // )
   }
 
   let changeBoardState = (thisi, givenPlayer) => {
@@ -54,8 +50,8 @@ let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~winningPlayer=
       }
     })
     setUltBoard(_ => newBoard);
-    Js.log("setting ult board")
-    Js.log(newBoard);
+    // Js.log("setting ult board")
+    // Js.log(newBoard);
     checkWin(newBoard);
   }
 
