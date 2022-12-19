@@ -251,12 +251,12 @@
 
 .moveOptions {
   position: absolute;
-  left: 635px;
-  top: 70%;
+  left: 1150px;
+  top: 50%;
+  transform: translateY(-50%);
   background-color: white;
   border-radius: 0.5rem;
   box-shadow: 0px 0px 8px #888;
-  width: 250px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -278,7 +278,7 @@
 }
 
 .x-option {
-  color: rgb(255, 70, 37);
+  color: gray;
   border: none;
   font-family: "Fredoka One", sans-serif;
   font-size: 125px;
@@ -289,7 +289,7 @@
 }
 
 .o-option {
-  color: rgb(44, 135, 255);
+  color: gray;
   border: none;
   font-family: "Fredoka One", sans-serif;
   font-size: 125px;
@@ -307,6 +307,14 @@
   opacity: 80%
 }
 
+.o-option.clicked {
+  color: rgb(44, 135, 255);
+}
+
+.x-option.clicked {
+  color: rgb(255, 70, 37);;
+}
+
 .clicked {
   opacity: 100%;
 }
@@ -317,6 +325,7 @@
 
 .alignment_cover {
   height: 100%;
+  opacity: 80%;
   background-color: black;
   width: 100%;
   position: absolute;
@@ -329,9 +338,11 @@
   background: white; 
   position: absolute;
   top: 50%;
-  left: 33%;
+  left: 32%;
   z-index: 2;
   transform: translateY(-50%);
+  border: none;
+  border-radius: 10%;
 }
 
 
@@ -351,10 +362,15 @@
 .aButton {
   width: 100%;
   text-align: center;
+  opacity: 90%;
   padding:1rem 0;
   background: none;
   font-family: "Fredoka One", sans-serif;
   border: black;
+}
+
+.aButton:hover {
+  opacity: 100%;
 }
 
 .chaos {
@@ -364,4 +380,20 @@
 .order {
   background-color: rgb(44, 135, 255);
 }
+
+.instruction {
+  font-family: "Fredoka One", sans-serif;
+  background-color: white;
+  border-radius: 0.5rem;
+  
+}
+
+.instruction.title {
+  font-weight: bold;
+  text-decoration: underline;
+  text-align: center;
+  font-size: 40px;
+}
+
+
 

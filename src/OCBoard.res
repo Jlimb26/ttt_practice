@@ -11,46 +11,93 @@ type choice =
   | Chaos
   | Neither
 
-let patterns = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6]
-]
-
 let initialBoardState = Belt_Array.make(36, Empty)
 
+let horizontals = Belt_Array.make(6, 0);
+let verticals = Belt_Array.make(6, 0);
+let diag1 = Belt_Array.make(6, 0);
+let diag2 = Belt_Array.make(11, 0);
+let diag3 = Belt_Array.make(6, 0);
+
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=0) => {
+let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=0, ~xScore, ~oScore, ~xPlaying) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
   let (option, setOption) = React.useState(_ => X)
   let (p1Alignment, setP1Alignment) = React.useState(_ => Neither)
 
+  let p2AlignmentString = switch p1Alignment {
+    | Order => "Chaos"
+    | Chaos => "Order"
+    | Neither => "Neither"
+  }
+
+  let p1AlignmentString = switch p1Alignment {
+    | Order => "Order"
+    | Chaos => "Chaos"
+    | Neither => "Neither"
+  }
+
   // let resetBoard = () => {
   //   setBoard(_ => initialBoardState)
   // }
 
-  //Checks win for a given 3x3 board
-  //If the optional passState function parameter exists (is a Some), this will also update the parent with this win.
-  let checkWin = (newBoard) => {
-    Belt_Array.forEach(patterns, (currPattern) => {
-      let firstPlayer = newBoard[currPattern[0]]
-      
-      if Belt_Array.every(currPattern, (x) => newBoard[x] == firstPlayer) && firstPlayer != Empty {
-        Js.Console.log("Someone won!")
-        setResult(_ => firstPlayer);
 
-        switch passState {
-          | None => Js.log();
-          | Some(fun) => fun(val, player);
-        }
+  
+
+  let checkWinner = (newBoard, currPlayer, stride, direction) => {
+    Belt_Array.forEachWithIndex(newBoard, (i, value) => {
+      if (stride(i) < 0) {
+        direction[0] = direction[0]
+      } else if (direction[stride(i)] >= 5) {
+        direction[stride(i)] = direction[stride(i)]
+      } else if (value == currPlayer) {
+        direction[stride(i)] = direction[stride(i)] + 1
+      } else {
+        direction[stride(i)] = 0
       }
     })
+    Js.Array.find(x => x >= 5, direction) == Some(5)
+  }
+
+  let checkOveralOrderWin = (newBoard) => {
+    checkWinner(newBoard, player, (x) => x / 6, horizontals) || 
+    checkWinner(newBoard, player, (x) => mod(x, 6), verticals) ||
+    checkWinner(newBoard, player, (x) => mod(x, 6) - x/6, diag1) ||
+    checkWinner(newBoard, player, (x) => mod(x, 6) + x/6, diag2) ||
+    checkWinner(newBoard, player, (x) => -mod(x, 6) + x/6, diag3)
+  }
+
+  let checkChaosWin = (newBoard) => {
+    Belt_Array.every(newBoard, (val) => val != Empty)
+  }
+
+  let resetCheckers = () => {
+    Belt_Array.forEachWithIndex(horizontals, (i, val) => horizontals[i] = 0)
+    Belt_Array.forEachWithIndex(verticals, (i, val) => verticals[i] = 0)
+    Belt_Array.forEachWithIndex(diag1, (i, val) => diag1[i] = 0)
+    Belt_Array.forEachWithIndex(diag2, (i, val) => diag2[i] = 0)
+    Belt_Array.forEachWithIndex(diag3, (i, val) => diag3[i] = 0)
+  }
+
+  let checkEitherWin = (newBoard) => {
+    if (checkOveralOrderWin(newBoard)) {
+      if (p1Alignment == Order) {
+        incrementScore(X)
+      } else {
+        incrementScore(O)
+      }
+      resetCheckers()
+      setBoard(_ => initialBoardState)
+    } else if (checkChaosWin(newBoard)) {
+      if (p1Alignment == Order) {
+        incrementScore(O)
+      } else {
+        incrementScore(X)
+      }
+      resetCheckers()
+      setBoard(_ => initialBoardState)
+    }
   }
 
   //Handles updating a square to X or O
@@ -60,7 +107,6 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
       if (i == square && val == Empty) { option } 
       else { val }
     })
-
     //Updates next player if a valid move was made
     if (newBoard != board) {
       if (player == X) {
@@ -69,10 +115,9 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
         setPlayer(_ => X)
       }
     }
-
-    //Checks if a player has won the game
-    checkWin(newBoard);
+    
     setBoard(_ => newBoard);
+    checkEitherWin(newBoard)
   }
 
   let xClicked = switch option {
@@ -103,11 +148,12 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
     <div className="o_a_board"> 
         {board -> Belt.Array.mapWithIndex((i, val) => {
             <Square value=val chooseSquare={_ => chooseSquare(i)} gameType=gameType/>
+            // <MathSquare value={mod(i, 6) + i/6} chooseSquare={_ => chooseSquare(i)} gameType=gameType/>
         })->React.array}
     </div>
     <div className="moveOptions o_c">
-            <button className={"x-option " ++ xClicked} onClick=(_ => setOption(_ => X))>{"X"->React.string}</button>
-            <button className={"o-option " ++ oClicked}onClick={_ => setOption(_ => O)}>{"O"->React.string}</button>
+      <button className={"x-option " ++ xClicked} onClick=(_ => setOption(_ => X))>{"X"->React.string}</button>
+      <button className={"o-option " ++ oClicked}onClick={_ => setOption(_ => O)}>{"O"->React.string}</button>
     </div> 
   </div>
 }

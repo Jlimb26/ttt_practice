@@ -25,6 +25,8 @@ let diag1 = Belt_Array.make(15, 0);
 let diag2 = Belt_Array.make(29, 0);
 let diag3 = Belt_Array.make(15, 0);
 
+let instruction = "Goal at least 5 in a row"
+
 @react.component
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
@@ -54,8 +56,20 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
     Js.Array.find(x => x >= 5, direction) == Some(5)
   }
 
-  let resetList = (l) => {
-    Belt_Array.map(l, (val) => 0)
+  let checkOveralWin = (newBoard) => {
+    checkWinner(newBoard, player, (x) => x / 15, horizontals) || 
+    checkWinner(newBoard, player, (x) => mod(x, 15), verticals) ||
+    checkWinner(newBoard, player, (x) => mod(x, 15) - x/15, diag1) ||
+    checkWinner(newBoard, player, (x) => mod(x, 15) + x/15, diag2) ||
+    checkWinner(newBoard, player, (x) => -mod(x, 15) + x/15, diag3)
+  }
+
+  let resetCheckers = () => {
+    Belt_Array.forEachWithIndex(horizontals, (i, val) => horizontals[i] = 0)
+    Belt_Array.forEachWithIndex(verticals, (i, val) => verticals[i] = 0)
+    Belt_Array.forEachWithIndex(diag1, (i, val) => diag1[i] = 0)
+    Belt_Array.forEachWithIndex(diag2, (i, val) => diag2[i] = 0)
+    Belt_Array.forEachWithIndex(diag3, (i, val) => diag3[i] = 0)
   }
 
   let chooseSquare = (square) => {
@@ -78,18 +92,10 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
 
     setBoard(_ => newBoard)
 
-    if (checkWinner(newBoard, player, (x) => x / 15, horizontals) || 
-        checkWinner(newBoard, player, (x) => mod(x, 15), verticals) ||
-        checkWinner(newBoard, player, (x) => mod(x, 15) - x/15, diag1) ||
-        checkWinner(newBoard, player, (x) => mod(x, 15) + x/15, diag2) ||
-        checkWinner(newBoard, player, (x) => -mod(x, 15) + x/15, diag3)){
+    if (checkOveralWin(newBoard)){
       incrementScore(player)
       setBoard(_ => initialBoardState)
-      Belt_Array.forEachWithIndex(horizontals, (i, val) => horizontals[i] = 0)
-      Belt_Array.forEachWithIndex(verticals, (i, val) => verticals[i] = 0)
-      Belt_Array.forEachWithIndex(diag1, (i, val) => diag1[i] = 0)
-      Belt_Array.forEachWithIndex(diag2, (i, val) => diag2[i] = 0)
-      Belt_Array.forEachWithIndex(diag3, (i, val) => diag3[i] = 0)
+      resetCheckers();
     }
 
   }
@@ -119,5 +125,6 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
             // <MathSquare value={-mod(i, 15) + i/15} chooseSquare={_ => chooseSquare(i)} gameType=gameType/>
         })->React.array}
     </div>
+    <div className="instruction">{instruction->React.string}</div>
   </div>
 }
