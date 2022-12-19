@@ -13,6 +13,15 @@
   justify-content: center;
 }
 
+.Title {
+  position: absolute;
+  left: 80px;
+  font-family: "Fredoka One", sans-serif;
+  font-size: 80px;
+  top: 5%;
+  justify-content: center;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -230,7 +239,7 @@
 
 .moveOptions {
   position: absolute;
-  left: 630px;
+  left: 638px;
   top: 70%;
 }
 
@@ -239,7 +248,7 @@
   border: none;
   font-family: "Fredoka One", sans-serif;
   font-size: 125px;
-  padding-right: 50px;
+  padding-right: 35px;
   opacity: 50%;
 }
 

@@ -41,11 +41,11 @@ let make = () => {
   }
 
   let display = switch gameType {
-    | "Basic" => <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
+    | "Basic" => <BasicBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | "Ultimate" => <UltimateBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
-    | "Wild" => <Wild gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
+    | "Wild" => <WildBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer xScore=xScore setXscore=setXscore oScore=oScore setOscore=setOscore/>
-    | "Gomoku" => <Gomoku gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
+    | "Gomoku" => <GomokuBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | _ => <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
   }
 
@@ -68,15 +68,16 @@ let make = () => {
   // }
 
 
-  <div className="App">
+  <div className={"App " ++ gameType}>
     <ScoreBoard xScore={xScore} oScore={oScore} xPlaying={xPlaying} />
+    <div className="Title">{gameType->React.string}</div>
     <div className="Buttons">
       <div className="Button" onClick={_ => updateGame("Basic")}>{"Basic"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Ultimate")}>{"Ultimate"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Inverse")}>{"Inverse"->React.string}</div> 
       <div className="Button" onClick={_ => updateGame("Wild")}>{"Wild"->React.string}</div>
       <div className="Button" onClick={_ => updateGame("Gomoku")}>{"Gomoku"->React.string}</div> 
-      <div className="Button" onClick={_ => updateGame("Notako")}>{"Notako"->React.string}</div> 
+      <div className="Button" onClick={_ => updateGame("Notakto")}>{"Notakto"->React.string}</div> 
     </div> 
     <div className=gameType>
       display
