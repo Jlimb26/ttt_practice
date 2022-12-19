@@ -18,9 +18,9 @@ npm install --global yarn
 ```
 
 
-### ReScript
+### ReScript and Node Modules
 
-After this process, run the following to install the rest of the dependencies, including ReScript:
+After this process, run the following in the top-level (root) project folder to install the rest of the dependencies, including ReScript:
 
 ```shell
 npm install 
