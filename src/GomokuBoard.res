@@ -21,6 +21,7 @@ let initialBoardState = Belt_Array.make(225, Empty)
 
 let horizontals = Belt_Array.make(15, 0);
 let verticals = Belt_Array.make(15, 0);
+let diag1 = Belt_Array.make(29, 0);
 
 @react.component
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
@@ -52,6 +53,12 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
     })
     Js.Array.find(x => x >= 5, verticals) == Some(5)
   }
+
+  // let checkDiag1Winner = (newBoard, currPlayer) => {
+  //   Belt_Array.forEachWithIndex(newBoard, (i, value) => {
+
+  //   })
+  // }
 
   let resetList = (l) => {
     Belt_Array.map(l, (val) => 0)

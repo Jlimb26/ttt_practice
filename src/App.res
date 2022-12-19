@@ -46,7 +46,7 @@ let make = () => {
     | "Wild" => <WildBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | "Inverse" => <InverseBoard gameType=gameType player=player setPlayer=setPlayer xScore=xScore setXscore=setXscore oScore=oScore setOscore=setOscore/>
     | "Gomoku" => <GomokuBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
-    | "O&C" => <O_C gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
+    | "O&C" => <OCBoard gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
     | _ => <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore/>
   }
 

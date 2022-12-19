@@ -24,9 +24,9 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
 
-  // let resetBoard = () => {
-  //   setBoard(_ => initialBoardState)
-  // }
+  let resetBoard = () => {
+    setBoard(_ => initialBoardState)
+  }
 
   //Checks win for a given 3x3 board
   //If the optional passState function parameter exists (is a Some), this will also update the parent with this win.
@@ -84,5 +84,6 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
         <Square value=board[7] chooseSquare={_ => chooseSquare(7)} gameType=gameType/>
         <Square value=board[8] chooseSquare={_ => chooseSquare(8)} gameType=gameType/>
     </div>
+     <button className="reset_button" onClick=(_ => resetBoard())>{"Reset"->React.string}</button>
   </div>
 }

@@ -28,7 +28,7 @@ let initialBoardState = Belt_Array.make(36, Empty)
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=0) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
-  let (option, setOption) = React.useState(_ => Empty)
+  let (option, setOption) = React.useState(_ => X)
   let (p1Alignment, setP1Alignment) = React.useState(_ => Neither)
 
   // let resetBoard = () => {
@@ -57,7 +57,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
   let chooseSquare = (square) => {
     //Checks if this is a valid click
     let newBoard = Belt_Array.mapWithIndex(board, (i, val) => {
-      if (i == square && val == Empty) { player } 
+      if (i == square && val == Empty) { option } 
       else { val }
     })
 

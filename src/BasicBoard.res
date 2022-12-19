@@ -23,13 +23,14 @@ let initialBoardState = Belt_Array.make(9, Empty)
 @react.component
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
 
-  // let resetBoard = () => {
-  //   setBoard(_ => initialBoardState)
-  // }
+  
+// let resetBoard = () => {
+//     setBoard(_ => initialBoardState)
+// }
 
-  let changeWin = (_, player) => {
-    incrementScore(player);
-  }
+let changeWin = (_, player) => {
+  incrementScore(player);
+}
 
 
   //Rendering info for the winner (BoardResult), as well as each individual square.

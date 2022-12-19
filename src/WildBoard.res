@@ -6,6 +6,8 @@
 
 open Square
 
+type orderOrChaos
+
 let patterns = [
   [0, 1, 2],
   [3, 4, 5],
@@ -22,7 +24,7 @@ let initialBoardState = Belt_Array.make(9, Empty)
 @react.component
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
-  let (option, setOption) = React.useState(_ => Empty)
+  let (option, setOption) = React.useState(_ => X)
   // let (player, setPlayer) = React.useState(_ => X);
 
   let checkWin = (newBoard) => {
