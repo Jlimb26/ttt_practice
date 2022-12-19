@@ -20,7 +20,7 @@ let patterns = [
 let initialBoardState = Belt_Array.make(9, Empty)
 
 @react.component
-let make = (~gameType, ~player, ~setPlayer, ~scores, ~setScores, ~passState=?, ~val=0) => {
+let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=0) => {
   let (board, setBoard) = React.useState(_ => initialBoardState);
   let (result, setResult) = React.useState(_ => Empty)
 
