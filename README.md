@@ -1,4 +1,4 @@
-# Tic-Tac-Toe Galore!
+# [Tic-Tac-Toe Galore!](https://tictactoe-galore.netlify.app)
 
 This project, written entirely in ReScript, contains the code for our tic-tac-toe galore game! The application itself consists of a variety different tic-tac-toe games, including traditional tic-tac-toe, ultimate tic-tac-toe, inverse tic-tac-toe, and so on.
 
@@ -18,9 +18,9 @@ npm install --global yarn
 ```
 
 
-### ReScript
+### ReScript and Node Modules
 
-After this process, run the following to install the rest of the dependencies, including ReScript:
+After this process, run the following in the top-level (root) project folder to install the rest of the dependencies, including ReScript:
 
 ```shell
 npm install 
@@ -28,7 +28,7 @@ npm install
 
 ## Deployment
 
-This application is currently deployed on heroku at the following link: [Tic-Tac-Toe-Galore]()
+This application is currently deployed on heroku at the following link: [Tic-Tac-Toe-Galore](https://tictactoe-galore.netlify.app)
 
 To run the rescript compiler, you can run one of the following:
 
