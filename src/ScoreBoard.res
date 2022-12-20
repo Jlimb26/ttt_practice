@@ -13,8 +13,6 @@
         | _ => ""
     }
 
-    
-
     <div className="scoreboard">
         <span className={"score x-score " ++ xTurn}>{{p1Name ++ " - " ++ {xScore}->Belt.Int.toString}->React.string}</span>
         <span className={"score o-score " ++ oTurn}>{{p2Name ++ " - " ++ {oScore}->Belt.Int.toString}->React.string}</span>
