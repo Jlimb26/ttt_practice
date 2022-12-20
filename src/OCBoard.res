@@ -93,6 +93,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
       }
       resetCheckers()
       setBoard(_ => initialBoardState)
+      setP1Alignment(_ => Neither)
+      setPlayer(_ => X)
     } else if (checkChaosWin(newBoard)) {
       if (p1Alignment == Order) {
         incrementScore(O)
@@ -101,6 +103,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
       }
       resetCheckers()
       setBoard(_ => initialBoardState)
+      setP1Alignment(_ => Neither)
+      setPlayer(_ => X)
     }
   }
 
