@@ -81,6 +81,10 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
   }
 
   let checkEitherWin = (newBoard) => {
+    Js.Console.log("board")
+    Js.Console.log(newBoard)
+    Js.Console.log("horizontals")
+    Js.Console.log(horizontals)
     if (checkOveralOrderWin(newBoard)) {
       if (p1Alignment == Order) {
         incrementScore(X)
