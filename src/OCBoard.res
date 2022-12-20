@@ -93,6 +93,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
       }
       resetCheckers()
       setBoard(_ => initialBoardState)
+      setP1Alignment(_ => Neither)
+      setPlayer(_ => X)
     } else if (checkChaosWin(newBoard)) {
       if (p1Alignment == Order) {
         incrementScore(O)
@@ -101,6 +103,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
       }
       resetCheckers()
       setBoard(_ => initialBoardState)
+      setP1Alignment(_ => Neither)
+      setPlayer(_ => X)
     }
   }
 
@@ -159,5 +163,9 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
       <button className={"x-option " ++ xClicked} onClick=(_ => setOption(_ => X))>{"X"->React.string}</button>
       <button className={"o-option " ++ oClicked}onClick={_ => setOption(_ => O)}>{"O"->React.string}</button>
     </div> 
+    <div className="aDesc"> 
+      <div className="p1 desc">{{"P1: " ++ p1AlignmentString}->React.string}</div>
+      <div className="p2 desc">{{"P2: " ++ p2AlignmentString}->React.string}</div>
+    </div>
   </div>
 }

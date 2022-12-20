@@ -160,6 +160,19 @@
   transform: translateY(0%);
 }
 
+.display_result.Overall_ultimate {
+  height: 40rem;
+  width: 40rem;
+  font-size: 800px;
+  transform: translateY(0%);
+  z-index: 10;
+  left: -15px;
+}
+
+.display_result.Basic {
+  display: none;
+}
+
 
 .x {
   color: rgb(255, 70, 37);
@@ -400,6 +413,23 @@
   width: 300px;
   font-size: 45px;
 }
+
+.aDesc {
+  position: absolute;
+  left: 1150px;
+  top: 65%;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0px 0px 8px #888;
+}
+
+.desc {
+  font-family: "Fredoka One", sans-serif;
+  font-size: 50px;
+  background: none;
+}
+
+
 
 
 

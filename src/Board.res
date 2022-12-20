@@ -37,6 +37,9 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
       if Belt_Array.every(currPattern, (x) => newBoard[x] == firstPlayer) && firstPlayer != Empty {
         Js.Console.log("Someone won!")
         setResult(_ => firstPlayer);
+        if (gameType == "Basic") {
+          setBoard(_ => initialBoardState)
+        }
 
         switch passState {
           | None => Js.log();
@@ -64,8 +67,8 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
     }
 
     //Checks if a player has won the game
-    checkWin(newBoard);
     setBoard(_ => newBoard);
+    checkWin(newBoard);
   }
 
   //Rendering info for the winner (BoardResult), as well as each individual square.

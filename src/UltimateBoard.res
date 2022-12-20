@@ -17,6 +17,8 @@ let patterns = [
   [2, 4, 6]
 ]
 
+let initialBoardStates2 = Belt_Array.make(9, Belt_Array.make(9, Empty))
+
 //Initial States for both the individual boards and ult board for resets
 let initialUltimateState = Belt_Array.make(9, Empty)
 let initialBoardStates = Belt_Array.make(9, Empty)
@@ -25,11 +27,15 @@ let initialBoardStates = Belt_Array.make(9, Empty)
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~winningPlayer=?) => {
   let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
   let (boards, setBoards) = React.useState(_ => initialBoardStates);
+  let (result, setResult) = React.useState(_ => Empty);
 
   //Resets the ultimate board
   let resetUltBoard = () => {
+    Js.Console.log("Trying to reset")
     setBoards(_ => initialBoardStates);
     setUltBoard(_ => initialUltimateState);
+    Js.Console.log(initialBoardStates);
+    Js.Console.log(initialUltimateState);
   }
 
   //Iterates through the ultBoard array, checking if the patterns match for the overall board result
@@ -39,6 +45,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~winningPlayer=?) =
       let firstPlayer = ultBoard[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => ultBoard[x] == firstPlayer) && firstPlayer != Empty {
         incrementScore(firstPlayer);
+        setResult(_ => firstPlayer);
         resetUltBoard();
       }
     })
@@ -58,23 +65,9 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~winningPlayer=?) =
 
   //Rendering info for this Ultimate board of 3x3 tic-tac-toe Boards
   <div className="ultimate_board">
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=0 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=1 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=2 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=3 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=4 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=5 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=6 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=7 />
-      <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore
-        passState=changeBoardState val=8 />
+    <BoardResult value=result gameType="Overall_ultimate" />
+      {Belt_Array.mapWithIndex((initialBoardStates2), (i, val) => {
+        <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore passState=changeBoardState val=i />
+      })->React.array}
   </div>
 }
