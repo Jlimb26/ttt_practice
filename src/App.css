@@ -160,6 +160,15 @@
   transform: translateY(0%);
 }
 
+.display_result.Overall_ultimate {
+  height: 40rem;
+  width: 40rem;
+  font-size: 800px;
+  transform: translateY(0%);
+  z-index: 10;
+  left: -15px;
+}
+
 .display_result.Basic {
   display: none;
 }
@@ -419,6 +428,8 @@
   font-size: 50px;
   background: none;
 }
+
+
 
 
 

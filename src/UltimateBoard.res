@@ -27,6 +27,7 @@ let initialBoardStates = Belt_Array.make(9, Empty)
 let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~winningPlayer=?) => {
   let (ultBoard, setUltBoard) = React.useState(_ => initialUltimateState);
   let (boards, setBoards) = React.useState(_ => initialBoardStates);
+  let (result, setResult) = React.useState(_ => Empty);
 
   //Resets the ultimate board
   let resetUltBoard = () => {
@@ -44,6 +45,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~winningPlayer=?) =
       let firstPlayer = ultBoard[currPattern[0]]
       if Belt_Array.every(currPattern, (x) => ultBoard[x] == firstPlayer) && firstPlayer != Empty {
         incrementScore(firstPlayer);
+        setResult(_ => firstPlayer);
         resetUltBoard();
       }
     })
@@ -63,6 +65,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~winningPlayer=?) =
 
   //Rendering info for this Ultimate board of 3x3 tic-tac-toe Boards
   <div className="ultimate_board">
+    <BoardResult value=result gameType="Overall_ultimate" />
       {Belt_Array.mapWithIndex((initialBoardStates2), (i, val) => {
         <Board gameType=gameType player=player setPlayer=setPlayer incrementScore=incrementScore passState=changeBoardState val=i />
       })->React.array}
