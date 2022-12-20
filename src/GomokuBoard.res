@@ -33,14 +33,6 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
   let (result, setResult) = React.useState(_ => Empty)
 
 
-  // let checkDiag1Winner = (newBoard, currPlayer) => {
-  //   Belt_Array.forEachWithIndex(newBoard, (i, value) => {
-  //     if (diag1[mod(i, 15) - i/15] >= 5) {
-  //       diag1[mod(i, 15) - i/15] = diag1[]
-  //     })
-  //   })
-  // }
-
   let checkWinner = (newBoard, currPlayer, stride, direction) => {
     Belt_Array.forEachWithIndex(newBoard, (i, value) => {
       if (stride(i) < 0) {
@@ -125,6 +117,5 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore) => {
             // <MathSquare value={-mod(i, 15) + i/15} chooseSquare={_ => chooseSquare(i)} gameType=gameType/>
         })->React.array}
     </div>
-    <div className="instruction">{instruction->React.string}</div>
   </div>
 }

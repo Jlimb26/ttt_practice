@@ -34,7 +34,6 @@ let initialBoardState = Belt_Array.make(9, Empty)
 @react.component
 let make = () => {
   let (gameType, setGameType) = React.useState(_ => "Basic")
-  let (scores, setScores) = React.useState(_ => {xScore: 0, oScore: 0})
   let (xScore, setXscore) = React.useState(_ => 0)
   let (oScore, setOscore) = React.useState(_ => 0)
   let (player, setPlayer) = React.useState(_ => X) //X begins the game, but we can always change this

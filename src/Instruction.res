@@ -6,7 +6,6 @@ let make = (~content) => {
 
   //Fills each indivdual square with an X, O, or nothing value
   <div className="instruction">
-    <div className = "instruction title">{"Instructions"->React.string}</div>
     <div className = "instruction content">{content->React.string}</div>
   </div> 
 }
