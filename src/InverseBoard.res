@@ -38,6 +38,12 @@ let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOs
     })
   }
 
+  let checkTie = (newBoard) => {
+    if (Belt_Array.every(newBoard, (val) => val != Empty)) {
+      setBoard(_ => initialBoardState)
+    }
+  }
+
   let chooseSquare = (square) => {
     let newBoard = Belt_Array.mapWithIndex(board, (i, val) => {
       if (i == square && val == Empty) {
@@ -48,9 +54,8 @@ let make = (~gameType, ~player, ~setPlayer, ~xScore, ~setXscore, ~oScore, ~setOs
       }
     })
     setBoard(_ => newBoard)
-    Js.Console.log("NewBoard")
-    Js.Console.log(newBoard)
     checkWin(newBoard)
+    checkTie(newBoard)
     if (player == X) {
       setPlayer(_ => O)
     } else {

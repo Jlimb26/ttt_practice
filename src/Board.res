@@ -49,6 +49,12 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
     })
   }
 
+  let checkTie = (newBoard) => {
+    if (Belt_Array.every(newBoard, (val) => val != Empty)) {
+      setBoard(_ => initialBoardState)
+    }
+  }
+
   //Handles updating a square to X or O
   let chooseSquare = (square) => {
     //Checks if this is a valid click
@@ -69,6 +75,7 @@ let make = (~gameType, ~player, ~setPlayer, ~incrementScore, ~passState=?, ~val=
     //Checks if a player has won the game
     setBoard(_ => newBoard);
     checkWin(newBoard);
+    checkTie(newBoard);
   }
 
   //Rendering info for the winner (BoardResult), as well as each individual square.
